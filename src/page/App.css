@@ -7,7 +7,7 @@ html, body {
 
 #content {
   width: 100%;
-  max-width: 900px;
+  max-width: 1500px;
   margin: 0 auto;
 }
 
@@ -34,10 +34,32 @@ html, body {
 }
 
 .data-book {
-  width: 420px;
+  width: 700px;
   list-style-type: none;
   display: block;
   margin: 10px;
+}
+
+.contentBookImgTitleAu {
+  display: grid;
+  grid-template-columns: auto auto;
+  margin-bottom: 10px;
+}
+
+.contentBookImgTitleAu img {
+  margin-right: 10px;
+  width: 200px;
+  height: 250px;
+}
+
+.title-authors h1{
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: 22px;
+}
+
+.limiteParagraph {
+  
 }
 
 #footer-page {

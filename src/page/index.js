@@ -1,17 +1,26 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 
-import api from '../api'
+import api from '../connectionApi'
 
 import './App.css';
 import logoImg from '../assents/Logo.png'
 
 function App() {
-  //const [ books, setBooks ] = useState([])
+  const [books, setBooks] = useState([])
 
   async function handleSearchBook() {
-    const response = await api.get('50 tons de cinza')
+    const valueBook = document.querySelector('#clientBook').value
+    const response = await api.get(valueBook)
+    const listbooks = response.data.items
 
-    console.log(response)
+    setBooks(listbooks)
+  }
+
+  function handleViewDescription(description) {
+    const lastWord = description.indexOf(' ', 200)
+    const redefinedDescription = description.substring(0, lastWord)
+
+    return redefinedDescription
   }
 
 
@@ -20,47 +29,23 @@ function App() {
       <header id="header-page">
         <img src={logoImg} alt="Logo livros" id="logo"/>
         <p>Pesquisa seu livro em interesse</p>
-        <input type="text"/>
+        <input type="text" id="clientBook" />
         <button type="button" onClick={handleSearchBook} >Pesquisar</button>
       </header>
 
       <main id="main">
         <ul id="list-main">
-          <li className="data-book">
-            <h1>Lorem ipsum</h1>
-            <h2>NOME LOREM IPSUM</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id vel tempora commodi cum dicta voluptatibus voluptatem culpa vitae nisi illo facilis, suscipit assumenda error dolorem quos, eos </p>
-          </li>
-
-          <li className="data-book">
-            <h1 className="title">Lorem ipsum</h1>
-            <h2>NOME LOREM IPSUM</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id vel tempora commodi cum dicta voluptatibus voluptatem culpa vitae nisi illo facilis, suscipit assumenda error dolorem quos, eos </p>
-          </li>
-
-          <li className="data-book">
-            <h1 className="title">Lorem ipsum</h1>
-            <h2>NOME LOREM IPSUM</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id vel tempora commodi cum dicta voluptatibus voluptatem culpa vitae nisi illo facilis, suscipit assumenda error dolorem quos, eos </p>
-          </li>
-
-          <li className="data-book">
-            <h1 className="title">Lorem ipsum</h1>
-            <h2>NOME LOREM IPSUM</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id vel tempora commodi cum dicta voluptatibus voluptatem culpa vitae nisi illo facilis, suscipit assumenda error dolorem quos, eos </p>
-          </li>
-
-          <li className="data-book">
-            <h1 className="title">Lorem ipsum</h1>
-            <h2>NOME LOREM IPSUM</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id vel tempora commodi cum dicta voluptatibus voluptatem culpa vitae nisi illo facilis, suscipit assumenda error dolorem quos, eos </p>
-          </li>
-
-          <li className="data-book">
-            <h1>Lorem ipsum</h1>
-            <h2>NOME LOREM IPSUM</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id vel tempora commodi cum dicta voluptatibus voluptatem culpa vitae nisi illo facilis, suscipit assumenda error dolorem quos, eos </p>
-          </li>
+          {books.map( (book, index) => (
+            <li key={index} className="data-book">
+              <div className="contentBookImgTitleAu">
+                <img src={book.volumeInfo.imageLinks.smallThumbnail} alt="book img"/>
+                <div className="title-authors">
+                  <h1>{book.volumeInfo.title}</h1>
+                  <p>{book.volumeInfo.authors}</p>
+                  <p className="limiteParagraph">{handleViewDescription(book.volumeInfo.description) + '...'}</p>
+                </div>
+              </div>
+            </li>))}
         </ul>
       </main>
 
