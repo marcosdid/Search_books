@@ -4,6 +4,7 @@ import api from '../connectionApi'
 
 import './App.css';
 import logoImg from '../assents/Logo.png'
+import substituteImgBook from '../assents/substituteImageBook.png'
 
 function App() {
   const [books, setBooks] = useState([])
@@ -13,16 +14,27 @@ function App() {
     const response = await api.get(valueBook)
     const listbooks = response.data.items
 
-    setBooks(listbooks)
+    const newBooks = listbooks.map((book) => {
+      let { title = '', authors = '', categories = '', description = '', language = '', imageLinks = substituteImgBook  } = book.volumeInfo
+      if (imageLinks !== substituteImgBook ) {
+        imageLinks = imageLinks.thumbnail
+      }
+      
+      return ({title, authors, categories, description, language, imageLinks})
+    })
+    setBooks(newBooks)
   }
 
   function handleViewDescription(description) {
+    if (description.length < 200 ) {
+      return description
+    }
+
     const lastWord = description.indexOf(' ', 200)
     const redefinedDescription = description.substring(0, lastWord)
 
     return redefinedDescription
   }
-
 
   return (
     <div id="content">
@@ -35,14 +47,14 @@ function App() {
 
       <main id="main">
         <ul id="list-main">
-          {books.map( (book, index) => (
+          {books.map((book, index) => (
             <li key={index} className="data-book">
               <div className="contentBookImgTitleAu">
-                <img src={book.volumeInfo.imageLinks.smallThumbnail} alt="book img"/>
+                <img src={book.imageLinks} alt="book img"/>
                 <div className="title-authors">
-                  <h1>{book.volumeInfo.title}</h1>
-                  <p>{book.volumeInfo.authors}</p>
-                  <p className="limiteParagraph">{handleViewDescription(book.volumeInfo.description) + '...'}</p>
+                  <h1>{book.title}</h1>
+                  <p>{book.authors}</p>
+                  <p className="limiteParagraph">{handleViewDescription(book.description) + '...'}</p>
                 </div>
               </div>
             </li>))}
