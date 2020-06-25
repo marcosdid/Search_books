@@ -1,0 +1,51 @@
+.modal {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  background-color: rgba(68, 61, 61, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  background-color: #fff;
+  color: #000;
+  width: 50%;
+  height: auto;
+  border-radius: 20px;
+}
+
+.content {
+  margin: 15px;
+}
+
+.imgTitleAuthors {
+  display: flex;
+  justify-content: space-between;
+}
+
+.imgTitleAuthors img {
+  margin-right: 10px;
+  width: 150px;
+  height: 230px;
+}
+
+.titleAuthors {
+  width: auto;
+  flex-grow: 1;
+}
+
+#iconX {
+ width: 50px;
+ height: 50px;
+}
+
+
+#iconX {
+  width: 50px;
+  height: 50px;
+}

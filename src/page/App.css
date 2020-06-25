@@ -2,7 +2,6 @@ html, body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background: #7159c1;
 }
 
 #content {
@@ -43,7 +42,6 @@ html, body {
 .contentBookImgTitleAu {
   display: grid;
   grid-template-columns: auto auto;
-  margin-bottom: 10px;
 }
 
 .contentBookImgTitleAu img {
@@ -58,9 +56,6 @@ html, body {
   font-size: 22px;
 }
 
-.limiteParagraph {
-  
-}
 
 #footer-page {
   display: flex;

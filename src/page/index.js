@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 
-import api from '../connectionApi'
+import api from '../connection/connectionApi'
+import Modal from '../components/modal/modal'
 
 import './App.css';
 import logoImg from '../assents/Logo.png'
@@ -8,6 +9,8 @@ import substituteImgBook from '../assents/substituteImageBook.png'
 
 function App() {
   const [books, setBooks] = useState([])
+  const [modalIsVisible, setmodalIsVisible] = useState(false)
+  const [ contentModal, setContentModal ] = useState([])
 
   async function handleSearchBook() {
     const valueBook = document.querySelector('#clientBook').value
@@ -36,6 +39,13 @@ function App() {
     return redefinedDescription
   }
 
+  function handleModalVisible(book) {
+    const contentBook = book
+    
+    setContentModal(contentBook)
+    setmodalIsVisible(true)
+    }
+
   return (
     <div id="content">
       <header id="header-page">
@@ -49,7 +59,7 @@ function App() {
         <ul id="list-main">
           {books.map((book, index) => (
             <li key={index} className="data-book">
-              <div className="contentBookImgTitleAu">
+              <div className="contentBookImgTitleAu" onClick={() => {handleModalVisible(book)}} >
                 <img src={book.imageLinks} alt="book img"/>
                 <div className="title-authors">
                   <h1>{book.title}</h1>
@@ -57,8 +67,12 @@ function App() {
                   <p className="limiteParagraph">{handleViewDescription(book.description) + '...'}</p>
                 </div>
               </div>
+              
             </li>))}
         </ul>
+        {modalIsVisible ? <Modal onClose={() => setmodalIsVisible(false) } >
+          {contentModal}
+        </Modal>: null}
       </main>
 
       <footer id="footer-page">
