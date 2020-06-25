@@ -17,9 +17,39 @@ html, body {
 }
 
 #header-page img {
-  width: 100px;
-  height: 100px;
+  width: 130px;
+  height: 130px;
 }
+
+#header-page p {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  font-size: 18px;
+}
+
+#header-page input {
+  font-size: 15px;
+  padding-left: 6px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-bottom: 3px;
+  width: 230px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+#header-page button {
+  margin-left: 2px;
+  font-size: 15px;
+  padding: 3px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
 
 #main ul {
   display: flex;
